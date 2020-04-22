@@ -9,39 +9,32 @@
 
 using namespace std;
 
+#include<stack>
 class Solution {
 public:
-    string removeDuplicateLetters(string s) {
-        int mark[26] = {0};
-        int cnt[26] = {0};
-        for (int i =0; i < s.size(); i++) {
-            cnt[s[i] - 'a']++;
+    string removeDuplicates(string S) {
+        stack<char> st;
+        for (int i=0; i < S.size(); i++) {
+            if (!st.empty() && S[i] == st.top()) {
+                st.pop();
+                continue;
+            }
+            st.push(S[i]);
         }
 
-        stack<char> st;
-        for (int i = 0; i < s.size(); i++){
-            if (mark[s[i]-'a'] != 1) {
-                while (!st.empty() && s[i] < st.top() && cnt[s[i]-'a']  > 0) {
-                    mark[st.top() - 'a'] = 0;
-                    st.pop();
-                }
-                st.push(s[i]);
-                mark[s[i] - 'a'] = 1;
-            }
-            cnt[s[i] - 'a']--;
-        }
         string res = "";
-        while (!st.empty()) {
+        while(!st.empty()) {
             res = st.top() + res;
             st.pop();
         }
         return res;
-    }
+    }   
 };
 
 int main()
 {
-    Solution s;
-    auto res = s.removeDuplicateLetters("cbacdcbc");
+    Solution st;
+    auto res = st.removeDuplicates("dawd");
+
     cout << res << endl;
 }
