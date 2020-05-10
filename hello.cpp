@@ -1,40 +1,42 @@
-#include <iostream>
+#include <deque>
 #include <fstream>
-#include <vector>
+#include <iostream>
 #include <map>
 #include <set>
-#include <string>
 #include <stack>
-#include <deque>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-#include<stack>
-class Solution {
-public:
-    string removeDuplicates(string S) {
-        stack<char> st;
-        for (int i=0; i < S.size(); i++) {
-            if (!st.empty() && S[i] == st.top()) {
-                st.pop();
-                continue;
-            }
-            st.push(S[i]);
-        }
+struct ListNode
+{
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 
-        string res = "";
-        while(!st.empty()) {
-            res = st.top() + res;
-            st.pop();
+class Solution
+{
+public:
+    vector<int> printListFromTailToHead(ListNode *head)
+    {
+        stack<int> tmp;
+        while (head != NULL) {
+            tmp.push(head->val);
+            head = head->next;
+        }
+        vector<int> res;
+        while (!tmp.empty()) {
+            res.push_back(tmp.top());
+            tmp.pop();
         }
         return res;
-    }   
+    }
 };
 
 int main()
 {
-    Solution st;
-    auto res = st.removeDuplicates("dawd");
 
-    cout << res << endl;
+    cout << '===============' << endl;
 }
